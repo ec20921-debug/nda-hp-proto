@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>ＮＤＡ株式会社 試作サイト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Klee+One:wght@600&family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* レイアウト：白地と大きな余白、明朝の見出し＋小さな英字ラベル（参考サイトの縦一本道構成）。夕景の街並みをヒーローに */
+:root{
+  --paper:#FAFAF9; --ink:#16191E; --muted:#646A73; --line:#E2E3E6; --panel:#EEF0F2; --accent:#2D4B6E; --on-accent:#FFFFFF; --band:#16191E; --on-band:#E9EBEE;
+  --f-display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --f-latin:"Cormorant Garamond","Times New Roman",serif;
+  --f-hand:"Klee One","Hiragino Mincho ProN",serif;
+  --wrap:1120px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0F1216; --ink:#E7E9EC; --muted:#9AA1AB; --line:#262B33; --panel:#181C22; --accent:#9DB8D8; --on-accent:#0F1216; --band:#070809; --on-band:#E9EBEE; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1216; --ink:#E7E9EC; --muted:#9AA1AB; --line:#262B33; --panel:#181C22; --accent:#9DB8D8; --on-accent:#0F1216; --band:#070809; --on-band:#E9EBEE; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.9;letter-spacing:.03em;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;text-wrap:balance;margin:0;letter-spacing:.06em}
+p{margin:0}
+.label{font-family:var(--f-body);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+
+/* 試作バナー */
+.proto{background:var(--accent);color:var(--on-accent);font-size:12px;text-align:center;padding:6px 16px;letter-spacing:.08em}
+
+/* ヘッダー */
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.logo{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.logo b{font-family:var(--f-latin);font-weight:500;font-size:28px;letter-spacing:.18em}
+.logo span{font-size:11px;color:var(--muted);letter-spacing:.14em}
+nav.gnav{display:flex;gap:26px;font-size:13px}
+nav.gnav a{text-decoration:none;position:relative;padding-block:4px}
+nav.gnav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:currentColor;transition:right .3s}
+nav.gnav a:hover::after{right:0}
+.menu-btn{display:none;background:none;border:0;color:inherit;font:inherit;font-size:12px;letter-spacing:.14em;cursor:pointer;align-items:center;gap:8px}
+.menu-btn i{display:block;width:22px;height:1px;background:currentColor;box-shadow:0 6px 0 currentColor;transform:translateY(-3px)}
+@media (max-width:900px){
+  nav.gnav{position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px clamp(16px,4vw,40px) 20px}
+  nav.gnav a{padding-block:12px;border-bottom:1px solid var(--line)}
+  nav.gnav:not(.open){display:none}
+  .menu-btn{display:flex}
+}
+
+/* ヒーロー */
+.hero{position:relative;height:clamp(460px,72vh,680px);overflow:hidden;background:#1d2a3d;color:#fff}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:62% 55%;display:block;animation:heroZoom 28s ease-out both}
+@keyframes heroZoom{from{transform:scale(1.1)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(95deg,rgba(6,10,20,.78) 0%,rgba(6,10,20,.45) 42%,rgba(6,10,20,0) 72%),linear-gradient(0deg,rgba(6,10,20,.55) 0%,rgba(6,10,20,0) 30%)}
+.hero h1,.hero .eyebrow,.hero p{animation:heroIn 1.4s cubic-bezier(.2,.7,.2,1) both}
+.hero .eyebrow{animation-delay:.2s}.hero h1{animation-delay:.35s}.hero p{animation-delay:.6s}
+@keyframes heroIn{from{transform:translateY(14px)}to{transform:none}}
+.hero .rule{width:56px;height:1px;background:#d8c3a5}
+.coord{position:absolute;z-index:1;left:clamp(16px,4vw,40px);bottom:22px;font-family:var(--f-latin);font-size:13px;letter-spacing:.24em;color:rgba(255,255,255,.72)}
+.hero .wrap{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;gap:22px}
+.hero .eyebrow{font-family:var(--f-latin);font-style:italic;font-size:clamp(16px,2vw,20px);letter-spacing:.12em;color:#e8dccd}
+.hero h1{font-size:clamp(30px,5.2vw,58px);line-height:1.45;font-weight:500}
+.hero p{max-width:34em;font-size:14px;line-height:2;color:#e4e7ec}
+.scroll-cue{position:absolute;z-index:1;right:clamp(16px,4vw,40px);bottom:24px;font-size:10px;letter-spacing:.3em;color:#e4e7ec;writing-mode:vertical-rl}
+.chapters{background:var(--band);color:var(--on-band)}
+.chapters .wrap{overflow-x:auto}
+.chapters ol{list-style:none;display:flex;gap:28px;margin:0;padding:16px 0;font-size:13px;white-space:nowrap}
+.chapters a{text-decoration:none;opacity:.78}
+.chapters a:hover{opacity:1}
+.chapters li::after{content:"•";margin-left:28px;opacity:.35}
+.chapters li:last-child::after{content:none}
+
+/* セクション共通 */
+section.block{padding-block:clamp(72px,10vw,128px);border-bottom:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:end;margin-bottom:clamp(40px,6vw,72px)}
+.sec-head h2{font-size:clamp(26px,3.4vw,36px);margin-top:10px}
+.sec-head p{color:var(--muted);font-size:14px;justify-self:end;max-width:26em}
+@media (max-width:760px){.sec-head{grid-template-columns:1fr}.sec-head p{justify-self:start}}
+
+/* ビジョン */
+.vision .lines{display:grid;gap:6px;font-family:var(--f-display);font-size:clamp(17px,2vw,21px);line-height:2.1;max-width:30em}
+.vision .hand{margin-top:clamp(36px,5vw,56px);font-family:var(--f-hand);font-size:clamp(24px,3.4vw,36px);line-height:1.7;color:var(--accent);transform:rotate(-2deg);transform-origin:left}
+
+/* 事業 */
+.biz{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(24px,5vw,72px)}
+.biz-index{position:sticky;top:96px;align-self:start;display:grid;gap:4px}
+.biz-index a{display:grid;grid-template-columns:32px 1fr;font-size:13px;text-decoration:none;padding-block:10px;border-bottom:1px solid var(--line);color:var(--muted)}
+.biz-index a:hover{color:var(--ink)}
+.biz-index a span{font-family:var(--f-latin);font-size:15px}
+.biz-list{display:grid;gap:clamp(56px,8vw,96px)}
+.biz-item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,4vw,48px);align-items:center;scroll-margin-top:96px}
+.biz-visual{aspect-ratio:4/3;max-width:100%;background:var(--panel);display:grid;place-items:center;position:relative;overflow:hidden}
+.biz-visual b{font-family:var(--f-latin);font-weight:400;font-size:clamp(28px,4vw,46px);letter-spacing:.14em;color:var(--muted);text-align:center;line-height:1.2}
+.biz-visual small{position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.2em;color:var(--muted)}
+.biz-meta{display:flex;gap:14px;align-items:baseline}
+.biz-meta .no{font-family:var(--f-latin);font-size:18px}
+.biz-item h3{font-size:clamp(22px,2.6vw,28px);margin:12px 0 18px}
+.biz-item p{color:var(--muted);font-size:14px}
+.more{display:inline-flex;justify-content:space-between;align-items:center;gap:40px;margin-top:26px;padding-bottom:8px;border-bottom:1px solid var(--ink);font-size:13px;text-decoration:none;min-width:200px}
+.more::after{content:"↗";font-size:16px}
+@media (max-width:900px){.biz{grid-template-columns:1fr}.biz-index{display:none}}
+@media (max-width:700px){.biz-item{grid-template-columns:1fr}}
+
+/* 相談テーマ */
+.themes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.theme{padding:28px 24px 32px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;gap:10px;align-content:start}
+.theme .label{color:var(--accent)}
+.theme h3{font-size:19px}
+.theme p{font-size:13px;color:var(--muted)}
+@media (max-width:860px){.themes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.themes{grid-template-columns:1fr}}
+
+/* 勉強会 */
+.study{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:start}
+.study .lead{font-family:var(--f-display);font-size:clamp(18px,2vw,22px);line-height:2}
+.study .note{margin-top:18px;color:var(--muted);font-size:14px}
+.study-links{display:grid;border-top:1px solid var(--ink)}
+.study-links a{display:flex;justify-content:space-between;gap:16px;padding:20px 4px;border-bottom:1px solid var(--line);text-decoration:none;font-size:15px}
+.study-links a::after{content:"→";color:var(--muted);transition:transform .25s}
+.study-links a:hover::after{transform:translateX(4px)}
+.study-links small{display:block;color:var(--muted);font-size:12px}
+@media (max-width:760px){.study{grid-template-columns:1fr}}
+
+/* スタッフ */
+.staff-index{display:flex;flex-wrap:wrap;gap:clamp(12px,3vw,32px);margin-bottom:clamp(48px,7vw,80px)}
+.staff-index a{display:grid;justify-items:center;gap:8px;text-decoration:none;font-size:12px;width:clamp(56px,14vw,96px)}
+.staff-index .face{width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;max-width:100%;transition:transform .3s}
+.staff-index a:hover .face{transform:translateY(-4px)}
+.staff-index .face img{width:100%;height:100%;display:block;object-fit:cover;object-position:50% 22%}
+.staff-list{display:grid;gap:clamp(56px,8vw,88px)}
+.member{display:grid;grid-template-columns:260px minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start;scroll-margin-top:96px}
+.member .portrait{margin:0;max-width:100%;display:grid;gap:10px}
+.member .portrait img{width:100%;height:auto;aspect-ratio:640/793;display:block;object-fit:cover}
+.member .portrait figcaption{font-family:var(--f-latin);font-size:13px;letter-spacing:.2em;color:var(--muted)}
+.member .role{color:var(--accent);font-size:12px;letter-spacing:.14em}
+.member h3{font-size:clamp(24px,3vw,30px);margin-top:6px}
+.member .roman{font-family:var(--f-latin);font-style:italic;font-size:16px;color:var(--muted);letter-spacing:.08em}
+.member .quote{margin:22px 0;font-family:var(--f-display);font-size:clamp(16px,1.8vw,19px);line-height:1.9;padding-left:18px;border-left:1px solid var(--accent)}
+.member dl{display:grid;grid-template-columns:7em minmax(0,1fr);gap:10px 18px;margin:0;font-size:14px}
+.member dt{color:var(--muted);font-size:12px;letter-spacing:.1em;padding-top:2px}
+.member dd{margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-size:12px;padding:2px 10px;border:1px solid var(--line);border-radius:999px}
+.fictional{margin-top:40px;font-size:12px;color:var(--muted)}
+@media (max-width:760px){.member{grid-template-columns:1fr}.member .portrait{width:min(240px,100%)}}
+
+/* お知らせ */
+.news{display:grid;border-top:1px solid var(--line)}
+.news a{display:grid;grid-template-columns:110px 120px minmax(0,1fr);gap:16px;padding:22px 4px;border-bottom:1px solid var(--line);text-decoration:none;font-size:14px}
+.news time{font-family:var(--f-latin);font-size:16px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.news .cat{font-size:11px;letter-spacing:.14em;color:var(--accent);padding-top:3px}
+@media (max-width:600px){.news a{grid-template-columns:auto 1fr}.news a span:last-child{grid-column:1/-1}}
+
+/* 会社情報 */
+.company{display:grid;grid-template-columns:minmax(0,1fr);max-width:820px}
+.company dl{display:grid;grid-template-columns:9em minmax(0,1fr);margin:0;border-top:1px solid var(--line)}
+.company dt,.company dd{padding:20px 4px;border-bottom:1px solid var(--line);margin:0}
+.company dt{color:var(--muted);font-size:13px}
+.company dd a{text-underline-offset:4px}
+@media (max-width:560px){.company dl{grid-template-columns:1fr}.company dt{border-bottom:0;padding-bottom:0}}
+
+/* お問い合わせ */
+.contact{text-align:left;display:grid;gap:22px;justify-items:start}
+.contact h2{font-size:clamp(26px,4vw,42px);line-height:1.6}
+.contact p{color:var(--muted);max-width:34em}
+.contact .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:16px 28px;background:var(--accent);color:var(--on-accent);text-decoration:none;font-size:14px;letter-spacing:.1em;border:0;cursor:pointer;font-family:inherit}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.mail{font-family:var(--f-latin);font-size:22px;letter-spacing:.06em;user-select:all}
+
+/* フッター */
+footer{padding-block:56px 40px;background:var(--band);color:var(--on-band)}
+footer .wrap{display:grid;gap:28px}
+footer .top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:flex-start}
+footer nav{display:flex;flex-wrap:wrap;gap:12px 24px;font-size:13px}
+footer nav a{text-decoration:none;opacity:.8}
+footer .disc{font-size:12px;opacity:.65;max-width:52em;line-height:1.9}
+footer .copy{font-size:11px;opacity:.5;letter-spacing:.1em}
+footer .logo span{color:inherit;opacity:.6}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+
+<div class="proto">試作版（2026.10.12）｜スタッフ・お知らせ・イラストはすべて仮のものです</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#top"><b>NDA</b><span>ＮＤＡ株式会社</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="gnav"><i></i>メニュー</button>
+    <nav class="gnav" id="gnav">
+      <a href="#vision">私たちについて</a>
+      <a href="#services">専門家チーム</a>
+      <a href="#themes">相談事例</a>
+      <a href="#study">カネカン勉強会</a>
+      <a href="#staff">スタッフ紹介</a>
+      <a href="#company">会社概要</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <img class="hero-bg" src="img/hero.jpg" alt="夕暮れの東京の街並みと東京タワー" width="2000" height="1125">
+  <div class="wrap">
+    <div class="eyebrow">Private Banking, Tax &amp; Family Office</div>
+    <div class="rule"></div>
+    <h1>その資産に、<br>専門家のチームを。</h1>
+    <p>プライベートバンカー、税理士、公認会計士、海外の専門家。それぞれの分野のプロが一つのチームとなり、オーナーとご家族の資産と事業を、次の世代へつなぎます。</p>
+  </div>
+  <div class="coord">TOKYO — 35.666°N 139.758°E</div>
+  <div class="scroll-cue">SCROLL</div>
+</div>
+<div class="chapters">
+  <div class="wrap">
+    <ol>
+      <li><a href="#vision">はじまり</a></li>
+      <li><a href="#svc-team">専門家チーム</a></li>
+      <li><a href="#svc-fo">ファミリーオフィス</a></li>
+      <li><a href="#svc-tax">国税ＯＢサポート</a></li>
+      <li><a href="#svc-alliance">連携事業</a></li>
+      <li><a href="#staff">スタッフ</a></li>
+    </ol>
+  </div>
+</div>
+
+<main>
+<section class="block vision" id="vision">
+  <div class="wrap">
+    <div class="label">Our Vision</div>
+    <h2 style="font-size:clamp(26px,3.4vw,36px);margin:10px 0 clamp(36px,5vw,56px)">私たちについて</h2>
+    <div class="lines">
+      <p>資産の悩みは、一つの専門分野では解けません。</p>
+      <p>税務、金融、事業、そして海外。</p>
+      <p>それぞれのプロが同じテーブルにつき、</p>
+      <p>ご家族の未来を、ひとつの絵として描きます。</p>
+      <p>商品を売るためではなく、正しい判断のために。</p>
+    </div>
+    <p class="hand">ひとつの家族に、<br>ひとつの専門家チームを。</p>
+  </div>
+</section>
+
+<section class="block" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="label">Our Services</div><h2>事業・取り組み</h2></div>
+      <p>独立系の専門家が横断的に関わることで、銀行や税理士事務所だけでは届かない領域までお手伝いします。</p>
+    </div>
+    <div class="biz">
+      <div class="biz-index" aria-label="事業一覧">
+        <a href="#svc-team"><span>01</span>専門家チーム</a>
+        <a href="#svc-fo"><span>02</span>ファミリーオフィス</a>
+        <a href="#svc-tax"><span>03</span>国税ＯＢサポート</a>
+        <a href="#svc-alliance"><span>04</span>連携事業</a>
+      </div>
+      <div class="biz-list">
+        <article class="biz-item" id="svc-team">
+          <div class="biz-visual"><b>EXPERT<br>TEAM</b><small>写真差し替え予定</small></div>
+          <div>
+            <div class="biz-meta"><span class="no">01</span><span class="label">Expert Team</span></div>
+            <h3>専門家チーム</h3>
+            <p>富裕層に強い税理士、プライベートバンカー、海外プロダクトの専門家などによる独立系チームです。社外ＣＦＯや顧問として、オーナー経営者を継続的に支援します。</p>
+            <a class="more" href="#staff">メンバーを見る</a>
+          </div>
+        </article>
+        <article class="biz-item" id="svc-fo">
+          <div class="biz-visual"><b>FAMILY<br>OFFICE</b><small>写真差し替え予定</small></div>
+          <div>
+            <div class="biz-meta"><span class="no">02</span><span class="label">Family Office</span></div>
+            <h3>ファミリーオフィス</h3>
+            <p>金融・税務のご相談、海外スキームの検討、経営者・富裕層向けの研修講師、複業支援のビジネス連携まで。ご家族単位で資産と事業の全体像を整理します。</p>
+            <a class="more" href="#themes">ご相談テーマを見る</a>
+          </div>
+        </article>
+        <article class="biz-item" id="svc-tax">
+          <div class="biz-visual"><b>TAX<br>ADVISORY</b><small>写真差し替え予定</small></div>
+          <div>
+            <div class="biz-meta"><span class="no">03</span><span class="label">Tax Advisory</span></div>
+            <h3>国税ＯＢサポート</h3>
+            <p>税務顧問は国税ＯＢのチームが、法務顧問は霞が関法律事務所が担当します。海外ビジネス、海外ビザ、海外不動産などの専門家もバックアップします。</p>
+            <a class="more" href="#contact">相談する</a>
+          </div>
+        </article>
+        <article class="biz-item" id="svc-alliance">
+          <div class="biz-visual"><b>ALLIANCE</b><small>写真差し替え予定</small></div>
+          <div>
+            <div class="biz-meta"><span class="no">04</span><span class="label">Alliance</span></div>
+            <h3>連携事業</h3>
+            <p>税理士法人、銀行、ＩＦＡ、不動産、保険の事業者と連携し、資産運用、資産承継、事業承継、海外居住などを支援します。利益相反が疑われる連携はお受けしていません。</p>
+            <a class="more" href="#contact">提携のご相談</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="themes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="label">Consultation</div><h2>ご相談の多いテーマ</h2></div>
+      <p>具体的な相談事例は、個別ミーティングでご紹介しています。</p>
+    </div>
+    <div class="themes">
+      <div class="theme"><span class="label">Succession</span><h3>事業承継・自社株</h3><p>後継者への引き継ぎ方と、自社株の評価・移転のタイミングを整理します。</p></div>
+      <div class="theme"><span class="label">Inheritance</span><h3>相続・資産承継</h3><p>相続税の試算から、ご家族の合意形成まで、時間をかけて準備します。</p></div>
+      <div class="theme"><span class="label">Overseas</span><h3>海外移住・海外居住</h3><p>居住地の選び方と、日本の税務上の注意点をセットで検討します。</p></div>
+      <div class="theme"><span class="label">Global Assets</span><h3>海外不動産・海外ビザ</h3><p>現地の専門家と連携し、取得から保有、出口までを確認します。</p></div>
+      <div class="theme"><span class="label">CFO</span><h3>社外ＣＦＯ・資金調達</h3><p>金融機関との交渉や、経営判断に使える数字づくりを伴走します。</p></div>
+      <div class="theme"><span class="label">Tax Audit</span><h3>税務調査への備え</h3><p>国税ＯＢの視点から、日頃の記録と説明の準備をお手伝いします。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="study">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="label">Study Sessions</div><h2>カネカン勉強会</h2></div>
+      <p>経営者・富裕層の方を対象にした、お金と資産の勉強会です。</p>
+    </div>
+    <div class="study">
+      <div>
+        <p class="lead">税務・金融・海外の専門家が講師となり、<br>いま判断に必要な知識を、少人数でお伝えします。</p>
+        <p class="note">会員の方は、過去の勉強会の録画をいつでもご覧いただけます。講師派遣のご依頼も承っています。</p>
+      </div>
+      <div class="study-links">
+        <a href="#contact"><span>会員登録<small>過去の勉強会ビデオが見られます</small></span></a>
+        <a href="#contact"><span>勉強会 全スケジュール<small>開催予定の一覧</small></span></a>
+        <a href="#contact"><span>個別ミーティング・相談<small>オンライン／対面</small></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="staff">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="label">Our Team</div><h2>スタッフ紹介</h2></div>
+      <p>ご相談の内容に合わせて、このメンバーがチームを組んで担当します。</p>
+    </div>
+    <div class="staff-index" id="staffIndex"></div>
+    <div class="staff-list" id="staffList"></div>
+    <p class="fictional">※試作用の架空の人物です（イラストはAIで生成）。公開時は実際のスタッフ情報とイラストに差し替えます。</p>
+  </div>
+</section>
+
+<section class="block" id="news">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="label">News</div><h2>お知らせ</h2></div>
+      <p>表示イメージ用のサンプルです。</p>
+    </div>
+    <div class="news">
+      <a href="#study"><time>2026.10.01</time><span class="cat">STUDY</span><span>（サンプル）カネカン勉強会 11月のスケジュールを公開しました</span></a>
+      <a href="#company"><time>2026.09.15</time><span class="cat">COMPANY</span><span>（サンプル）本社を新橋に移転しました</span></a>
+      <a href="#staff"><time>2026.09.01</time><span class="cat">TEAM</span><span>（サンプル）スタッフ紹介ページを公開しました</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="company">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="label">Company</div><h2>会社概要</h2></div>
+    </div>
+    <div class="company">
+      <dl>
+        <dt>商号</dt><dd>ＮＤＡ株式会社</dd>
+        <dt>所在地</dt><dd>〒105-0004<br>東京都港区新橋2-16-1 ニュー新橋ビル802<br><a href="https://www.google.com/maps/search/?api=1&query=%E3%83%8B%E3%83%A5%E3%83%BC%E6%96%B0%E6%A9%8B%E3%83%93%E3%83%AB" target="_blank" rel="noopener">地図を見る ↗</a></dd>
+        <dt>アクセス</dt><dd>ＪＲ新橋駅 日比谷口（ＳＬ広場側）すぐ</dd>
+        <dt>事業内容</dt><dd>資産コンサルティング（顧問業務）、社外ＣＦＯの派遣、経営者・富裕層向け講師派遣、ビジネス連携・個別相談</dd>
+        <dt>税務顧問</dt><dd>国税ＯＢチーム</dd>
+        <dt>法務顧問</dt><dd>霞が関法律事務所</dd>
+        <dt>メール</dt><dd>head@nda-jp.biz</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="contact" style="border-bottom:0">
+  <div class="wrap contact">
+    <div class="label">Contact</div>
+    <h2>まずは、お話を<br>お聞かせください。</h2>
+    <p>ご相談の内容がまとまっていなくても大丈夫です。最初のご連絡はクライアントサポートがお受けし、適した専門家をご紹介します。</p>
+    <div class="row">
+      <span class="mail" id="mailAddr">head@nda-jp.biz</span>
+      <button class="btn ghost" id="copyBtn" type="button">アドレスをコピー</button>
+    </div>
+    <a class="btn" href="https://nda-jp.biz/" target="_blank" rel="noopener">個別ミーティングを予約する ↗</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <a class="logo" href="#top"><b>NDA</b><span>ＮＤＡ株式会社</span></a>
+      <nav>
+        <a href="#vision">私たちについて</a><a href="#services">専門家チーム</a><a href="#themes">相談事例</a><a href="#study">カネカン勉強会</a><a href="#staff">スタッフ紹介</a><a href="#company">会社概要</a><a href="#contact">お問い合わせ</a>
+      </nav>
+    </div>
+    <p class="disc">当社は個別の金融商品・サービスの勧誘や販売を目的としていません。最終的なご判断は、ご自身の責任でお願いいたします。利益相反となるご相談はお受けしておりません。<br>〒105-0004 東京都港区新橋2-16-1 ニュー新橋ビル802</p>
+    <p class="copy">© NDA Inc. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// メニュー開閉（スマホ）
+const menuBtn=document.getElementById('menuBtn'), gnav=document.getElementById('gnav');
+menuBtn.addEventListener('click',()=>{const o=gnav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',o)});
+gnav.addEventListener('click',e=>{if(e.target.tagName==='A'){gnav.classList.remove('open');menuBtn.setAttribute('aria-expanded',false)}});
+
+// メールアドレスのコピー
+document.getElementById('copyBtn').addEventListener('click',e=>{
+  const btn=e.currentTarget, txt=document.getElementById('mailAddr');
+  const done=()=>{btn.textContent='コピーしました';setTimeout(()=>btn.textContent='アドレスをコピー',1800)};
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(txt);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='選択しました';setTimeout(()=>btn.textContent='アドレスをコピー',1800)};
+  try{navigator.clipboard.writeText(txt.textContent).then(done,fallback)}catch(_){fallback()}
+});
+
+// スタッフ紹介（イラストは img/ 配下）
+const STAFF=[
+  {id:'saeki',name:'佐伯 恒一',roman:'Koichi Saeki',role:'シニアパートナー／プライベートバンカー',
+   quote:'数字の話の前に、まずご家族のお話を伺うことから始めます。',
+   career:'大手銀行でプライベートバンカーとして約20年、企業オーナーや医師の方の資産管理を担当。独立後、当社に参画。',
+   tags:['資産全体の設計','事業承継','金融機関との調整'],holiday:'早朝のゴルフと、孫と出かける釣り'},
+  {id:'onodera',name:'小野寺 誠',roman:'Makoto Onodera',role:'税理士（国税ＯＢ）',
+   quote:'調査する側にいた経験があるからこそ、備え方を具体的にお伝えできます。',
+   career:'国税局で30年以上、資産税・調査部門を歴任。退官後に税理士登録し、国税ＯＢチームの一員として税務顧問を担当。',
+   tags:['相続税・贈与税','税務調査への対応','資産税'],holiday:'将棋道場通い（アマ四段）'},
+  {id:'hayase',name:'早瀬 美咲',roman:'Misaki Hayase',role:'公認会計士／社外ＣＦＯ',
+   quote:'経営者の隣で、数字を「判断の道具」に変えていきます。',
+   career:'大手監査法人で上場準備の支援に従事。その後スタートアップのＣＦＯを経て当社に参画。社外ＣＦＯとして複数社を担当。',
+   tags:['資金調達','管理会計','上場準備'],holiday:'朝ヨガと、パン屋めぐり'},
+  {id:'kuroki',name:'黒木 健',roman:'Ken Kuroki',role:'海外スキーム担当',
+   quote:'海外という選択肢を、実行できる手順にまで落とし込みます。',
+   career:'シンガポールとドバイで計12年、日本人の経営者・富裕層の海外法人設立や移住を支援。英語での現地専門家との調整を担当。',
+   tags:['海外法人・海外居住','海外ビザ','海外不動産'],holiday:'ダイビングと、各国の屋台めぐり'},
+  {id:'morita',name:'森田 さくら',roman:'Sakura Morita',role:'クライアントサポート／勉強会運営',
+   quote:'最初のご連絡は、私がお受けします。どうぞお気軽にご相談ください。',
+   career:'証券会社のリテール営業を経て入社。初回のご相談窓口と、カネカン勉強会の企画・運営を担当。',
+   tags:['初回ご相談の窓口','勉強会の企画','専門家との日程調整'],holiday:'御朱印集めと、純喫茶めぐり'}
+];
+const pic=s=>`<img src="img/${s.id}.jpg" alt="${s.name}のイラスト" width="640" height="793" loading="lazy">`;
+document.getElementById('staffIndex').innerHTML=STAFF.map(s=>
+  `<a href="#m-${s.id}"><span class="face">${pic(s)}</span>${s.name}</a>`).join('');
+document.getElementById('staffList').innerHTML=STAFF.map((s,i)=>`
+  <article class="member" id="m-${s.id}">
+    <figure class="portrait">${pic(s)}<figcaption>${String(i+1).padStart(2,'0')} / 05</figcaption></figure>
+    <div>
+      <div class="role">${s.role}</div>
+      <h3>${s.name}</h3>
+      <div class="roman">${s.roman}</div>
+      <p class="quote">${s.quote}</p>
+      <dl>
+        <dt>経歴</dt><dd>${s.career}</dd>
+        <dt>専門分野</dt><dd><div class="tags">${s.tags.map(t=>`<span>${t}</span>`).join('')}</div></dd>
+        <dt>休日の過ごし方</dt><dd>${s.holiday}</dd>
+      </dl>
+    </div>
+  </article>`).join('');
+</script>
+
+</body>
+
+</html>
