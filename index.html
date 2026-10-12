@@ -99,9 +99,11 @@ section.block{padding-block:clamp(72px,10vw,128px);border-bottom:1px solid var(-
 .biz-index a span{font-family:var(--f-latin);font-size:15px}
 .biz-list{display:grid;gap:clamp(56px,8vw,96px)}
 .biz-item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,4vw,48px);align-items:center;scroll-margin-top:96px}
-.biz-visual{aspect-ratio:4/3;max-width:100%;background:var(--panel);display:grid;place-items:center;position:relative;overflow:hidden}
-.biz-visual b{font-family:var(--f-latin);font-weight:400;font-size:clamp(28px,4vw,46px);letter-spacing:.14em;color:var(--muted);text-align:center;line-height:1.2}
-.biz-visual small{position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.2em;color:var(--muted)}
+.biz-visual{aspect-ratio:4/3;max-width:100%;background:#141a26;position:relative;overflow:hidden}
+.biz-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.biz-item:hover .biz-visual img{transform:scale(1.04)}
+.biz-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(20deg,rgba(6,10,20,.72) 0%,rgba(6,10,20,0) 55%)}
+.biz-visual b{position:absolute;z-index:1;left:22px;bottom:18px;font-family:var(--f-latin);font-weight:400;font-size:clamp(22px,2.6vw,32px);letter-spacing:.14em;color:#fff;line-height:1.15}
 .biz-meta{display:flex;gap:14px;align-items:baseline}
 .biz-meta .no{font-family:var(--f-latin);font-size:18px}
 .biz-item h3{font-size:clamp(22px,2.6vw,28px);margin:12px 0 18px}
@@ -192,7 +194,7 @@ footer .logo span{color:inherit;opacity:.6}
 html{scroll-behavior:smooth}
 </style>
 
-<div class="proto">試作版（2026.10.12）｜スタッフ・お知らせ・イラストはすべて仮のものです</div>
+<div class="proto">試作版（2026.10.12）｜スタッフ・お知らせ・画像はすべて仮のものです</div>
 
 <header class="site">
   <div class="wrap">
@@ -265,7 +267,7 @@ html{scroll-behavior:smooth}
       </div>
       <div class="biz-list">
         <article class="biz-item" id="svc-team">
-          <div class="biz-visual"><b>EXPERT<br>TEAM</b><small>写真差し替え予定</small></div>
+          <div class="biz-visual"><img src="img/biz-team.jpg" alt="夕暮れの会議室で話し合う専門家たち" width="1200" height="900" loading="lazy"><b>EXPERT<br>TEAM</b></div>
           <div>
             <div class="biz-meta"><span class="no">01</span><span class="label">Expert Team</span></div>
             <h3>専門家チーム</h3>
@@ -274,7 +276,7 @@ html{scroll-behavior:smooth}
           </div>
         </article>
         <article class="biz-item" id="svc-fo">
-          <div class="biz-visual"><b>FAMILY<br>OFFICE</b><small>写真差し替え予定</small></div>
+          <div class="biz-visual"><img src="img/biz-fo.jpg" alt="夜景の見える書斎" width="1200" height="900" loading="lazy"><b>FAMILY<br>OFFICE</b></div>
           <div>
             <div class="biz-meta"><span class="no">02</span><span class="label">Family Office</span></div>
             <h3>ファミリーオフィス</h3>
@@ -283,7 +285,7 @@ html{scroll-behavior:smooth}
           </div>
         </article>
         <article class="biz-item" id="svc-tax">
-          <div class="biz-visual"><b>TAX<br>ADVISORY</b><small>写真差し替え予定</small></div>
+          <div class="biz-visual"><img src="img/biz-tax.jpg" alt="書類に記入する手元と印鑑" width="1200" height="900" loading="lazy"><b>TAX<br>ADVISORY</b></div>
           <div>
             <div class="biz-meta"><span class="no">03</span><span class="label">Tax Advisory</span></div>
             <h3>国税ＯＢサポート</h3>
@@ -292,7 +294,7 @@ html{scroll-behavior:smooth}
           </div>
         </article>
         <article class="biz-item" id="svc-alliance">
-          <div class="biz-visual"><b>ALLIANCE</b><small>写真差し替え予定</small></div>
+          <div class="biz-visual"><img src="img/biz-alliance.jpg" alt="光の軌跡が交わる夜の交差点" width="1200" height="900" loading="lazy"><b>ALLIANCE</b></div>
           <div>
             <div class="biz-meta"><span class="no">04</span><span class="label">Alliance</span></div>
             <h3>連携事業</h3>
